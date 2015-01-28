@@ -14,6 +14,7 @@
 		365E6BB51A78D00600C45620 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 365E6BB41A78D00600C45620 /* Images.xcassets */; };
 		365E6BB81A78D00600C45620 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365E6BB61A78D00600C45620 /* LaunchScreen.xib */; };
 		365E6BC41A78D00600C45620 /* AnimatedBoxesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E6BC31A78D00600C45620 /* AnimatedBoxesTests.m */; };
+		365E6BD21A790FF700C45620 /* Box.m in Sources */ = {isa = PBXBuildFile; fileRef = 365E6BD11A790FF700C45620 /* Box.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		365E6BBD1A78D00600C45620 /* AnimatedBoxesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimatedBoxesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		365E6BC21A78D00600C45620 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		365E6BC31A78D00600C45620 /* AnimatedBoxesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimatedBoxesTests.m; sourceTree = "<group>"; };
+		365E6BD01A790FF700C45620 /* Box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box.h; sourceTree = "<group>"; };
+		365E6BD11A790FF700C45620 /* Box.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Box.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 				365E6BB41A78D00600C45620 /* Images.xcassets */,
 				365E6BB61A78D00600C45620 /* LaunchScreen.xib */,
 				365E6BA71A78D00600C45620 /* Supporting Files */,
+				365E6BD01A790FF700C45620 /* Box.h */,
+				365E6BD11A790FF700C45620 /* Box.m */,
 			);
 			path = AnimatedBoxes;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				365E6BB01A78D00600C45620 /* ViewController.m in Sources */,
+				365E6BD21A790FF700C45620 /* Box.m in Sources */,
 				365E6BAD1A78D00600C45620 /* AppDelegate.m in Sources */,
 				365E6BAA1A78D00600C45620 /* main.m in Sources */,
 			);

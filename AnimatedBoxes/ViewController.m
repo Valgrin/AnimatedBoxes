@@ -7,16 +7,17 @@
 //
 
 #import "ViewController.h"
+#import "Box.h"
 
-static NSUInteger const kNumberOfBoxes = 10;
+// Change number of boxes here
+static NSUInteger const kNumberOfBoxes = 12;
 static CGFloat const kBoxSide = 100;
 static CGFloat const kBoxMargin = 10;
 static NSTimeInterval const kAnimationDuration = 1;
 
-@interface ViewController ()
+@interface ViewController () <BoxDelegate>
 
 @property (nonatomic, strong) NSMutableArray *boxesArray;
-@property (nonatomic, strong) NSArray *colorArray;
 
 @end
 
@@ -25,15 +26,10 @@ static NSTimeInterval const kAnimationDuration = 1;
 - (void)loadView
 {
     [super loadView];
-    [self internalInit];
     for (int i = 0; i < kNumberOfBoxes; ++i)
     {
-        UIView *box = [[UIView alloc] initWithFrame: CGRectZero];
-        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(didTapView:)];
-        gestureRecognizer.cancelsTouchesInView = NO;
-        [box addGestureRecognizer: gestureRecognizer];
-        int randomColor = arc4random() % [self.colorArray count];
-        box.backgroundColor = self.colorArray[randomColor];
+        Box *box = [[Box alloc] init];
+        box.delegate = self;
         [self.boxesArray addObject: box];
         [self.view addSubview: box];
     }
@@ -66,51 +62,38 @@ static NSTimeInterval const kAnimationDuration = 1;
                          for (UIView *box in self.boxesArray)
                          {
                              [UIView animateWithDuration: kAnimationDuration
-                                              animations:^{
+                                              animations: ^{
                                                   box.alpha = 1;
                                               }];
                          }
                      }];
 }
 
-- (void)viewDidLoad
+#pragma mark - Accessors
+
+- (NSMutableArray *)boxesArray
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    if (_boxesArray == nil)
+    {
+        _boxesArray = [[NSMutableArray alloc] initWithCapacity: kNumberOfBoxes];
+    }
+    return _boxesArray;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - BoxDelegate
 
-#pragma mark - Private
-
-- (void)internalInit
+- (void)didTapBox:(Box *)box
 {
-    self.boxesArray = [[NSMutableArray alloc] initWithCapacity: kNumberOfBoxes];
-    self.colorArray = @[[UIColor redColor],
-                        [UIColor blackColor],
-                        [UIColor redColor],
-                        [UIColor greenColor],
-                        [UIColor yellowColor],
-                        [UIColor purpleColor],
-                        [UIColor blueColor]];
-}
-
-- (void)didTapView:(UITapGestureRecognizer *)recognizer
-{
-    NSLog(@"View %@", recognizer.view);
-    [self.boxesArray removeObject: recognizer.view];
+    [self.boxesArray removeObject: box];
     [UIView animateWithDuration: kAnimationDuration
                      animations: ^{
-                         recognizer.view.alpha = 0;
+                         box.alpha = 0;
                      }
                      completion: ^(BOOL finished) {
-                         [self.boxesArray addObject: recognizer.view];
+                         [self.boxesArray addObject: box];
                          [self.view setNeedsLayout];
                      }];
+    
 }
 
 @end
