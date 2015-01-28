@@ -11,6 +11,7 @@
 static NSUInteger const kNumberOfBoxes = 10;
 static CGFloat const kBoxSide = 100;
 static CGFloat const kBoxMargin = 10;
+static NSTimeInterval const kAnimationDuration = 1;
 
 @interface ViewController ()
 
@@ -41,22 +42,35 @@ static CGFloat const kBoxMargin = 10;
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    int xBox = 0;
-    int yBox = 0;
-    for (UIView *box in self.boxesArray)
-    {
-        box.frame = CGRectMake(xBox + kBoxMargin, yBox + kBoxMargin, kBoxSide, kBoxSide);
-        CGFloat leftOfBox = box.frame.origin.x + box.frame.size.width;
-        if (self.view.frame.size.width - leftOfBox > kBoxSide + (kBoxMargin * 2))
-        {
-            xBox += kBoxSide + kBoxMargin;
-        }
-        else
-        {
-            xBox = 0;
-            yBox += kBoxSide + kBoxMargin;
-        }
-    }
+    [UIView animateWithDuration: kAnimationDuration
+                     animations:
+     ^{
+         int xBox = 0;
+         int yBox = 0;
+         for (UIView *box in self.boxesArray)
+         {
+             box.frame = CGRectMake(xBox + kBoxMargin, yBox + kBoxMargin, kBoxSide, kBoxSide);
+             CGFloat leftOfBox = box.frame.origin.x + box.frame.size.width;
+             if (self.view.frame.size.width - leftOfBox > kBoxSide + (kBoxMargin * 2))
+             {
+                 xBox += kBoxSide + kBoxMargin;
+             }
+             else
+             {
+                 xBox = 0;
+                 yBox += kBoxSide + kBoxMargin;
+             }
+         }
+     }
+                     completion: ^(BOOL finished) {
+                         for (UIView *box in self.boxesArray)
+                         {
+                             [UIView animateWithDuration: kAnimationDuration
+                                              animations:^{
+                                                  box.alpha = 1;
+                                              }];
+                         }
+                     }];
 }
 
 - (void)viewDidLoad
@@ -88,6 +102,15 @@ static CGFloat const kBoxMargin = 10;
 - (void)didTapView:(UITapGestureRecognizer *)recognizer
 {
     NSLog(@"View %@", recognizer.view);
+    [self.boxesArray removeObject: recognizer.view];
+    [UIView animateWithDuration: kAnimationDuration
+                     animations: ^{
+                         recognizer.view.alpha = 0;
+                     }
+                     completion: ^(BOOL finished) {
+                         [self.boxesArray addObject: recognizer.view];
+                         [self.view setNeedsLayout];
+                     }];
 }
 
 @end
