@@ -28,6 +28,9 @@ static CGFloat const kBoxMargin = 10;
     for (int i = 0; i < kNumberOfBoxes; ++i)
     {
         UIView *box = [[UIView alloc] initWithFrame: CGRectZero];
+        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(didTapView:)];
+        gestureRecognizer.cancelsTouchesInView = NO;
+        [box addGestureRecognizer: gestureRecognizer];
         int randomColor = arc4random() % [self.colorArray count];
         box.backgroundColor = self.colorArray[randomColor];
         [self.boxesArray addObject: box];
@@ -80,6 +83,11 @@ static CGFloat const kBoxMargin = 10;
                         [UIColor yellowColor],
                         [UIColor purpleColor],
                         [UIColor blueColor]];
+}
+
+- (void)didTapView:(UITapGestureRecognizer *)recognizer
+{
+    NSLog(@"View %@", recognizer.view);
 }
 
 @end
