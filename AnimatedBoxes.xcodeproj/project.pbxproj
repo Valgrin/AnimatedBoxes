@@ -414,6 +414,7 @@
 				365E6BC91A78D00600C45620 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		365E6BCA1A78D00600C45620 /* Build configuration list for PBXNativeTarget "AnimatedBoxesTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +423,7 @@
 				365E6BCC1A78D00600C45620 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
