@@ -6,33 +6,34 @@
 //  Copyright (c) 2015 Thomas LEVY. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "BoxesViewController.h"
 #import "Box.h"
 
 // Change number of boxes here
-static NSUInteger const kNumberOfBoxes = 12;
 static CGFloat const kBoxSide = 100;
 static CGFloat const kBoxMargin = 10;
 static NSTimeInterval const kAnimationDuration = 1;
 
-@interface ViewController () <BoxDelegate>
+@interface BoxesViewController () <BoxDelegate>
 
 @property (nonatomic, strong) NSMutableArray *boxesArray;
 
 @end
 
-@implementation ViewController
+@implementation BoxesViewController
 
 - (void)loadView
 {
     [super loadView];
-    for (int i = 0; i < kNumberOfBoxes; ++i)
+    for (int i = 0; i < self.numberOfBoxes; ++i)
     {
         Box *box = [[Box alloc] init];
         box.delegate = self;
         [self.boxesArray addObject: box];
         [self.view addSubview: box];
     }
+    [self.navigationController setNavigationBarHidden: NO];
+    self.navigationController.navigationBar.topItem.title = [NSString stringWithFormat: @"%lu boxes", self.numberOfBoxes];
 }
 
 - (void)viewWillLayoutSubviews
@@ -75,7 +76,7 @@ static NSTimeInterval const kAnimationDuration = 1;
 {
     if (_boxesArray == nil)
     {
-        _boxesArray = [[NSMutableArray alloc] initWithCapacity: kNumberOfBoxes];
+        _boxesArray = [[NSMutableArray alloc] initWithCapacity: self.numberOfBoxes];
     }
     return _boxesArray;
 }

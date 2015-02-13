@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface BoxesViewController : UIViewController
 
+@property (nonatomic, assign) NSUInteger numberOfBoxes;
 
 @end
 
